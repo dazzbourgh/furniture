@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign in</title>
+</head>
+<body>
+<p>Sign in</p>
+<form th:action="@{/login}" method="post">
+    <div><input name="username"/></div>
+    <div><input name="password" type="password"/></div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+    <div th:if="${loginError}"><p>Invalid username or password</p></div>
+</form>
+</body>
+</html>
