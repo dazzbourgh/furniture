@@ -1,0 +1,9 @@
+.outlet {
+    margin: auto;
+    width: 100%;
+    color: red;
+}
+
+input {
+    margin: 1em 0;
+}
