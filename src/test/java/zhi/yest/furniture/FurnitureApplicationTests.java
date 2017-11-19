@@ -22,7 +22,15 @@ public class FurnitureApplicationTests {
         someBed.setFamily("Family");
         someBed.setPersonAmount(2);
         dao.save(someBed, Bed.class);
-        FurniturePiece bed = dao.getByFamily("Family").get(0);
-        assert bed != null;
+        Bed bed = (Bed) dao.getByFamily("Family").get(0);
+        bed.setTitle("New Title");
+        dao.update(bed, Bed.class);
+        bed = dao.getByTitle("New Title", Bed.class)
+                .orElse(null);
+        Bed fakeBed = new Bed();
+        fakeBed.setId(17L);
+        dao.delete(fakeBed, Bed.class);
+        dao.delete(bed, Bed.class);
+        assert dao.get(1L, Bed.class) == null;
     }
 }

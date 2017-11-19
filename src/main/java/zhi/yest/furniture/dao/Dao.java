@@ -10,6 +10,8 @@ public interface Dao {
 
     <T extends FurniturePiece> Long save(T t, Class<T> clazz);
 
+    <T extends FurniturePiece> boolean update(T t, Class<T> clazz);
+
     <T extends FurniturePiece> boolean delete(T t, Class<T> clazz);
 
     List<FurniturePiece> getByFamily(String family);

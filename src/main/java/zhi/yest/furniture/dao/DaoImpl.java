@@ -47,14 +47,18 @@ public class DaoImpl implements Dao {
         return id;
     }
 
-    //TODO: make sure entity really exists
     @Override
-    public <T extends FurniturePiece> boolean delete(T t, Class<T> clazz) {
+    public <T extends FurniturePiece> boolean update(T t, Class<T> clazz) {
         Optional<Transaction> tx = Optional.empty();
+        boolean result;
 
         try (Session session = util.openSession()) {
             tx = ofNullable(session.beginTransaction());
-            session.delete(t);
+            result = session.get(clazz, t.getId()) != null;
+            if (result) {
+                T managed = session.contains(t) ? t : (T) session.merge(t);
+                session.update(managed);
+            }
             tx.ifPresent(Transaction::commit);
         } catch (HibernateException e) {
             tx.ifPresent(Transaction::rollback);
@@ -62,6 +66,27 @@ public class DaoImpl implements Dao {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public <T extends FurniturePiece> boolean delete(T t, Class<T> clazz) {
+        Optional<Transaction> tx = Optional.empty();
+        boolean result;
+
+        try (Session session = util.openSession()) {
+            tx = ofNullable(session.beginTransaction());
+            result = session.get(clazz, t.getId()) != null;
+            if (result) {
+                T managed = session.contains(t) ? t : (T) session.merge(t);
+                session.delete(managed);
+            }
+            tx.ifPresent(Transaction::commit);
+        } catch (HibernateException e) {
+            tx.ifPresent(Transaction::rollback);
+            e.printStackTrace();
+            return false;
+        }
+        return result;
     }
 
     @Override

@@ -9,7 +9,6 @@ import javax.persistence.*;
 import javax.persistence.Table;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "title")})
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @NoArgsConstructor
@@ -23,7 +22,7 @@ public abstract class FurniturePiece {
 
     @Getter
     @Setter
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     protected String title;
 
     @Getter
@@ -37,4 +36,19 @@ public abstract class FurniturePiece {
     @Getter
     @Setter
     protected String color;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FurniturePiece that = (FurniturePiece) o;
+
+        return title.equals(that.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return title.hashCode();
+    }
 }
