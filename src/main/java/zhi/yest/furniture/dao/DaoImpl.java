@@ -3,30 +3,38 @@ package zhi.yest.furniture.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
-import zhi.yest.furniture.util.HibernateUtils;
+import zhi.yest.furniture.util.SessionUtil;
 
-import java.io.Serializable;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
 
+@Repository
 public class DaoImpl implements Dao {
+    @Autowired
+    SessionUtil util;
+
     @Override
-    public <T> Optional<T> get(Long id, Class<T> clazz) {
-        Session session = HibernateUtils.getSessionFactory().openSession();
+    public <T extends FurniturePiece> T get(Long id, Class<T> clazz) {
+        Session session = util.openSession();
         T t = session.get(clazz, id);
         session.close();
-        return ofNullable(t);
+        return t;
     }
 
     @Override
-    public <T> Optional<Long> save(T t, Class<T> clazz) {
-        Optional<Transaction> tx = null;
+    public <T extends FurniturePiece> Long save(T t, Class<T> clazz) {
+        Optional<Transaction> tx = Optional.empty();
         Long id = null;
 
-        try (Session session = HibernateUtils.getSessionFactory().openSession()) {
+        try (Session session = util.openSession()) {
             tx = ofNullable(session.beginTransaction());
             id = (Long) session.save(t);
             tx.ifPresent(Transaction::commit);
@@ -34,11 +42,47 @@ public class DaoImpl implements Dao {
             tx.ifPresent(Transaction::rollback);
             e.printStackTrace();
         }
-        return ofNullable(id);
+        return id;
+    }
+
+    //TODO: make sure entity really exists
+    @Override
+    public <T extends FurniturePiece> boolean delete(T t, Class<T> clazz) {
+        Optional<Transaction> tx = Optional.empty();
+
+        try (Session session = util.openSession()) {
+            tx = ofNullable(session.beginTransaction());
+            session.delete(t);
+            tx.ifPresent(Transaction::commit);
+        } catch (HibernateException e) {
+            tx.ifPresent(Transaction::rollback);
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public List<FurniturePiece> getByFamily(String family) {
         return null;
+    }
+
+    @Override
+    public <T extends FurniturePiece> List<T> getByFamily(String family, Class<T> clazz) {
+        return null;
+    }
+
+    @Override
+    public <T extends FurniturePiece> Optional<T> getByTitle(String title, Class<T> clazz) {
+        try (Session session = util.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(clazz);
+            Root<T> root = criteriaQuery.from(clazz);
+            criteriaQuery.select(root);
+            criteriaQuery.where(criteriaBuilder.equal(root.get("title"), title));
+            return session.createQuery(criteriaQuery).uniqueResultOptional();
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 }
