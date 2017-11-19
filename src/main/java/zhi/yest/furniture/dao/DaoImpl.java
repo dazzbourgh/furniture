@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
 import zhi.yest.furniture.util.SessionUtil;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,12 +66,24 @@ public class DaoImpl implements Dao {
 
     @Override
     public List<FurniturePiece> getByFamily(String family) {
-        return null;
+        try (Session session = util.openSession()) {
+            Query query = session.createQuery("select f from FurniturePiece f where family=:family", FurniturePiece.class);
+            query.setParameter("family", family);
+            return (List<FurniturePiece>) query.getResultList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     @Override
     public <T extends FurniturePiece> List<T> getByFamily(String family, Class<T> clazz) {
-        return null;
+        try (Session session = util.openSession()) {
+            Query query = session.createQuery("select t from " + clazz.getSimpleName() + " t where family=:family", clazz);
+            query.setParameter("family", family);
+            return (List<T>) query.getResultList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
     }
 
     @Override
