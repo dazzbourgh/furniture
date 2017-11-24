@@ -22,12 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .anyRequest().authenticated()
-                .antMatchers("/styles/**").permitAll()
-//                .antMatchers("/templates/pages/**").hasRole("USER")
+                    .antMatchers("/styles/**").permitAll()
+                    .antMatchers("/templates/pages/**").hasRole("USER")
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login").permitAll().failureUrl("/login-error");
+                    .formLogin()
+                    .loginPage("/login").permitAll().failureUrl("/login-error");
     }
 
     @Autowired
