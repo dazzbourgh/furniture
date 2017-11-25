@@ -1,0 +1,38 @@
+.cat-container {
+    width: 60vw;
+    margin: 5em auto auto;
+}
+
+.btn-buy {
+    background-color: rgba(150, 150, 150, 0.8) !important;
+    text-align: center;
+    width: 3em;
+    height: 2em;
+    display: block;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    padding-top: 0.25em;
+    font-size: 2em;
+}
+
+.btn-buy:hover {
+    background-color: rgba(222, 222, 222, 1) !important;
+    cursor: pointer;
+    text-decoration: none;
+    color: grey;
+}
+
+.btn-buy:visited,
+.btn-buy:link {
+    text-decoration: none;
+    color: white;
+}
+
+.main-content {
+    margin-top: 2em;
+}
+
+.alertify {
+    background-color: rgba(0, 0, 0, .6);
+}

@@ -18,12 +18,6 @@ public class LoginController {
     @PostMapping
     public String postLogin() {
         // TODO Enable form login with Spring Security (trigger error for now)
-        return "redirect:/welcome";
-    }
-
-    @GetMapping("/login-error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login";
+        return "redirect:/main";
     }
 }

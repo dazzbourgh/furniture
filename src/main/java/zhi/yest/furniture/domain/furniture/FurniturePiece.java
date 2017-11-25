@@ -37,6 +37,10 @@ public abstract class FurniturePiece {
     @Setter
     protected String color;
 
+    @Getter
+    @Setter
+    protected String pictureUrl;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

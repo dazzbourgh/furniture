@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/css/**", "/js/**").permitAll()
                     .antMatchers("/pages/**").hasRole("USER")
                     .anyRequest().authenticated()
                 .and()
@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutSuccessUrl("/login")
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .invalidateHttpSession(true);
+                    .invalidateHttpSession(true)
+                .and()
+                .csrf().disable();
     }
 
     @Autowired

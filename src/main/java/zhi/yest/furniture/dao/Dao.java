@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface Dao {
     <T extends FurniturePiece> T get(Long id, Class<T> clazz);
 
+    List<FurniturePiece> getAll();
+
     <T extends FurniturePiece> Long save(T t, Class<T> clazz);
 
     <T extends FurniturePiece> boolean update(T t, Class<T> clazz);

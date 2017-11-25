@@ -18,20 +18,22 @@ public class FurnitureApplicationTests {
     Dao dao;
 
     @Test
-    public void contextLoads() {
+    public void fillDB() {
         Bed someBed = new Bed();
-        someBed.setTitle("Queen's Bed");
-        someBed.setFamily("Queen's");
+        someBed.setTitle("Gulen Bed");
+        someBed.setFamily("Gulen");
         someBed.setPersonAmount(2);
         someBed.setPrice(20F);
-        someBed.setColor("Grey");
+        someBed.setColor("Brown");
+        someBed.setPictureUrl("https://www.myathath.com/thumbnail.ashx?Size=400&Ratio=1&Image=files/products/12_170517172744372_0.jpg");
         dao.save(someBed, Bed.class);
         Locker locker = new Locker();
         locker.setShelvesAmount(5);
         locker.setColor("Grey");
-        locker.setFamily("Queen's");
+        locker.setFamily("Gulen");
         locker.setPrice(100F);
-        locker.setTitle("Queen's Locker");
+        locker.setTitle("Gulen Wardrobe");
+        locker.setPictureUrl("https://www.visionconfort.com/media/catalog/product/cache/2/image/1200x1200/9df78eab33525d08d6e5fb8d27136e95/s/q/square1.png");
         dao.save(locker, Locker.class);
         Table table = new Table();
         table.setSize(5);
@@ -39,6 +41,7 @@ public class FurnitureApplicationTests {
         table.setFamily("Generic");
         table.setPrice(1F);
         table.setTitle("Generic Table");
+        table.setPictureUrl("http://www.oxfordgarden.com/products/images/thumb_HA28TA_1.jpg");
         dao.save(table, Table.class);
     }
 }

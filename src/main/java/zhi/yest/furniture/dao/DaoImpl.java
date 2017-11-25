@@ -32,6 +32,16 @@ public class DaoImpl implements Dao {
     }
 
     @Override
+    public List<FurniturePiece> getAll() {
+        try (Session session = util.openSession()) {
+            Query query = session.createQuery("select f from FurniturePiece f", FurniturePiece.class);
+            return (List<FurniturePiece>) query.getResultList();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
     public <T extends FurniturePiece> Long save(T t, Class<T> clazz) {
         Optional<Transaction> tx = Optional.empty();
         Long id = null;
