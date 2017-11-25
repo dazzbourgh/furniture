@@ -5,10 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
 public class MainController {
-    @GetMapping
+    @GetMapping("/")
     public String root() {
-        return "forward:/welcome";
+        return "forward:/main";
+    }
+
+    @GetMapping("/main")
+    public String main() {
+        return "pages/main";
+    }
+
+    @GetMapping("/catalog")
+    public String catalog() {
+        return "pages/main";
     }
 }

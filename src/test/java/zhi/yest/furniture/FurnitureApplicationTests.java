@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import zhi.yest.furniture.dao.Dao;
 import zhi.yest.furniture.domain.furniture.Bed;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
+import zhi.yest.furniture.domain.furniture.Locker;
+import zhi.yest.furniture.domain.furniture.Table;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,19 +20,25 @@ public class FurnitureApplicationTests {
     @Test
     public void contextLoads() {
         Bed someBed = new Bed();
-        someBed.setTitle("Generic Bed");
-        someBed.setFamily("Family");
+        someBed.setTitle("Queen's Bed");
+        someBed.setFamily("Queen's");
         someBed.setPersonAmount(2);
+        someBed.setPrice(20F);
+        someBed.setColor("Grey");
         dao.save(someBed, Bed.class);
-        Bed bed = (Bed) dao.getByFamily("Family").get(0);
-        bed.setTitle("New Title");
-        dao.update(bed, Bed.class);
-        bed = dao.getByTitle("New Title", Bed.class)
-                .orElse(null);
-        Bed fakeBed = new Bed();
-        fakeBed.setId(17L);
-        dao.delete(fakeBed, Bed.class);
-        dao.delete(bed, Bed.class);
-        assert dao.get(1L, Bed.class) == null;
+        Locker locker = new Locker();
+        locker.setShelvesAmount(5);
+        locker.setColor("Grey");
+        locker.setFamily("Queen's");
+        locker.setPrice(100F);
+        locker.setTitle("Queen's Locker");
+        dao.save(locker, Locker.class);
+        Table table = new Table();
+        table.setSize(5);
+        table.setColor("Purple");
+        table.setFamily("Generic");
+        table.setPrice(1F);
+        table.setTitle("Generic Table");
+        dao.save(table, Table.class);
     }
 }

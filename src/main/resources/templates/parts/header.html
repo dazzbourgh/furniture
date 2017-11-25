@@ -1,31 +1,20 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Header</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-    <header class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
-        <div class="navbar-header">
-            <button type="button" class="collapsed navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-9" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
-            <a href="/" class="navbar-brand">Home</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a style="font-size: 500%;">Catalog</a>
-                </li>
-                <li>
-                    <a href="/logout">Log out</a>
-                </li>
-            </ul>
-        </div>
-    </header>
+<header class="header" th:fragment="header">
+    <div class="navigation">
+        <div class="btn-menu"><a role="button" class="btn-text" href="/">Home</a></div>
+        <div class="btn-menu"><a role="button" class="btn-text" href="/catalog">Catalog</a></div>
+        <div class="btn-menu" sec:authorize="hasRole('USER')"><a role="button" class="btn-text">My orders</a></div>
+        <div class="btn-menu" sec:authorize="hasRole('WORKER')"><a role="button" class="btn-text">Warehouse</a></div>
+        <div class="btn-menu" sec:authorize="hasRole('MANAGER')"><a role="button" class="btn-text">Sales</a></div>
+        <div class="btn-menu"><a role="button" class="btn-text" href="/logout">Log out</a></div>
+    </div>
+</header>
 </body>
 </html>
