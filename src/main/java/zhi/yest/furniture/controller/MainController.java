@@ -15,9 +15,4 @@ public class MainController {
     public String main() {
         return "pages/main";
     }
-
-    @GetMapping("/catalog")
-    public String catalog() {
-        return "pages/main";
-    }
 }
