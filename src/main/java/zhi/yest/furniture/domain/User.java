@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class User {
     @Column(unique = true, nullable = false)
     @Id
+    @GeneratedValue
     @Getter @Setter
     private Long id;
 
@@ -31,11 +32,10 @@ public class User {
     @Getter @Setter
     private Role role;
 
-    private enum Role {
-        USER("user"),
-        MANAGER("manager"),
-        WORKER("worker"),
-        ADMIN("admin");
+    public enum Role {
+        USER("USER"),
+        MANAGER("MANAGER"),
+        WORKER("WORKER");
 
         String role;
 
