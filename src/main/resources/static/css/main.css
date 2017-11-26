@@ -54,3 +54,30 @@ html, body {
     text-decoration: none;
     color: grey;
 }
+
+.jumbo-container {
+    width: 70%;
+    margin: 4em auto auto;
+    padding: 2em;
+    background-color: #eee;
+    border-radius: 2em;
+}
+
+.btn-start,
+.btn-start:hover,
+.btn-start:active,
+.btn-start:link {
+    text-decoration: none;
+}
+
+.btn-start {
+    color: white;
+    background-color: darkgray;
+    border-radius: 0.4em;
+    padding: 0.5em;
+}
+
+.btn-start:hover {
+    color: gray;
+    background-color: white;
+}

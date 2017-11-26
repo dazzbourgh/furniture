@@ -18,7 +18,7 @@ public class CatalogController {
     private Dao dao;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_WORKER')")
     public String catalog(Model model) {
         List<FurniturePiece> prods = dao.getAll();
         model.addAttribute("prods", prods);

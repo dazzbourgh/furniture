@@ -21,7 +21,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityUserService springUserService;
 
-    //TODO: fix this
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
