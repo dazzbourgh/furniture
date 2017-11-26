@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import zhi.yest.furniture.service.OrderService;
 
@@ -25,5 +25,12 @@ public class OrderController {
     public String myOrders(Model model) {
         model.addAttribute("orders", orderService.getOrders());
         return "pages/orders";
+    }
+
+    @PostMapping("/order/ship")
+    public ResponseEntity<Boolean> ship(@RequestBody String body) {
+        Long id = Long.parseLong(body.split("=")[1]);
+        boolean result = null == orderService.ship(id);
+        return ResponseEntity.ok(result);
     }
 }

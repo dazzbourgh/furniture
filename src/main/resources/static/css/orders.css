@@ -8,3 +8,7 @@
 .orders-head {
     font-weight: 600;
 }
+
+.orders-td {
+    vertical-align: middle !important;
+}

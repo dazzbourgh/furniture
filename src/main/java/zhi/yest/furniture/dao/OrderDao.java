@@ -10,4 +10,10 @@ import java.util.Set;
 @Repository
 public interface OrderDao extends CrudRepository<FurnitureOrder, Long> {
     Set<FurnitureOrder> findByUser(User user);
+
+    Set<FurnitureOrder> findByShipped(Boolean shipped);
+
+    default Set<FurnitureOrder> findAllNotShipped() {
+        return findByShipped(false);
+    }
 }

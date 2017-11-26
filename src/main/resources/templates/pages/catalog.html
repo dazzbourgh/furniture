@@ -33,7 +33,7 @@
                         <p th:text='${"Family: " + prod.getFamily()}'></p>
                         <p th:text='${prod.getPrice() + " BTC"}'></p>
                         <div>
-                            <a role="button" class="btn-buy" th:onclick="'doOrder(' + ${prod.getId()} + ')'">Buy</a>
+                            <a sec:authorize="hasRole('USER')" role="button" class="btn-buy" th:onclick="'doOrder(' + ${prod.getId()} + ')'">Buy</a>
                         </div>
                     </div>
                 </div>

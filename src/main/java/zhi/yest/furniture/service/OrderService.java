@@ -38,6 +38,13 @@ public class OrderService {
         return orderDao.findByUser(getUser());
     }
 
+    @Transactional
+    public FurnitureOrder ship(Long orderId) {
+        FurnitureOrder order = orderDao.findById(orderId).orElseThrow(NullPointerException::new);
+        order.setShipped(true);
+        return orderDao.save(order);
+    }
+
     private User getUser() {
         org.springframework.security.core.userdetails.User details = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDao.findByUsername(details.getUsername());
