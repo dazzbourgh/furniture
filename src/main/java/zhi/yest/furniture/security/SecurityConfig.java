@@ -1,4 +1,4 @@
-package zhi.yest.furniture.config;
+package zhi.yest.furniture.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private SecurityUserService springUserService;
 
     //TODO: fix this
     @Override
@@ -42,9 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .inMemoryAuthentication()
-                .passwordEncoder(passwordEncoder)
-                .withUser("user").password("password").roles("USER");
+                .userDetailsService(springUserService)
+                .passwordEncoder(passwordEncoder);
     }
 
     @Bean
