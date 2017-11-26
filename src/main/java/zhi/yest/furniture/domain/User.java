@@ -6,21 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username")
-})
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    @Column(unique = true, nullable = false)
+    @Column
     @Id
     @GeneratedValue
     @Getter @Setter
     private Long id;
 
-    @Column
+    @Column(unique = true)
     @Getter @Setter
     private String username;
 
@@ -31,6 +29,11 @@ public class User {
     @Column
     @Getter @Setter
     private Role role;
+
+    @Getter
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private Set<FurnitureOrder> orders;
 
     public enum Role {
         USER("USER"),

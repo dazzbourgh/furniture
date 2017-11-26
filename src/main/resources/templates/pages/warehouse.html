@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse</title>
+    <link th:href="@{/css/orders.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/main.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        function ship(id) {
+            $.post(`/order/ship`, {id: id}, () => {
+                const row = Array.from(document.getElementsByTagName('input'))
+                    .filter(node => node.value == id)
+                    .map(node => node.parentNode)
+                    .find((node, i) => i == 0);
+                row.remove();
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="bg">
+    <header th:replace="parts/header :: header">
+    </header>
+    <section class="main-content">
+        <div class="panel panel-default orders">
+            <div class="panel-heading">Pending orders</div>
+            <table class="table">
+                <thead class="orders-head">
+                <tr>
+                    <td>Product Title</td>
+                    <td>Customer</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="order : ${orders}">
+                    <input type="hidden" th:value="${order.getId()}">
+                    <td class="orders-td" th:text="${order.getProduct().getTitle()}"></td>
+                    <td class="orders-td" th:text="${order.getUser().getUsername()}"></td>
+                    <td><button class="btn" th:onclick="'ship(' + ${order.getId()} + ');'">Ship</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>

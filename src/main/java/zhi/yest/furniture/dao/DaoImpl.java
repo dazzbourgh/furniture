@@ -21,7 +21,7 @@ import static java.util.Optional.ofNullable;
 @Repository
 public class DaoImpl implements Dao {
     @Autowired
-    SessionUtil util;
+    private SessionUtil util;
 
     @Override
     public <T extends FurniturePiece> T get(Long id, Class<T> clazz) {
