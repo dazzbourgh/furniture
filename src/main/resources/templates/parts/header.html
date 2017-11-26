@@ -12,7 +12,7 @@
         <div class="btn-menu"><a role="button" class="btn-text" href="/catalog">Catalog</a></div>
         <div class="btn-menu" sec:authorize="hasRole('USER')"><a role="button" class="btn-text" href="/orders">My orders</a></div>
         <div class="btn-menu" sec:authorize="hasRole('WORKER')"><a role="button" class="btn-text" href="/warehouse">Warehouse</a></div>
-        <div class="btn-menu" sec:authorize="hasRole('MANAGER')"><a role="button" class="btn-text">Sales</a></div>
+        <div class="btn-menu" sec:authorize="hasRole('MANAGER')"><a role="button" class="btn-text" href="/sales">Sales</a></div>
         <div class="btn-menu"><a role="button" class="btn-text" href="/logout">Log out</a></div>
     </div>
 </header>
