@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.Table;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
