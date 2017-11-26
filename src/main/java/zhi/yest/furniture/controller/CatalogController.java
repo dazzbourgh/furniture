@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/catalog")
 public class CatalogController {
     @Autowired
-    Dao dao;
+    private Dao dao;
 
     @GetMapping
     public String catalog(Model model) {

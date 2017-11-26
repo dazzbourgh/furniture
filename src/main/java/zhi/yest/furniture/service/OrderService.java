@@ -11,6 +11,7 @@ import zhi.yest.furniture.domain.User;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
 
 import javax.transaction.Transactional;
+import java.util.Set;
 
 @Service
 public class OrderService {
@@ -23,13 +24,22 @@ public class OrderService {
 
     @Transactional
     public FurnitureOrder createOrder(Long furnitureId) {
-        org.springframework.security.core.userdetails.User details = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.findByUsername(details.getUsername());
+        User user = getUser();
         FurniturePiece piece = dao.get(furnitureId, FurniturePiece.class);
         FurnitureOrder order = new FurnitureOrder();
         order.setProduct(piece);
         order.setUser(user);
         order.setShipped(false);
         return orderDao.save(order);
+    }
+
+    @Transactional
+    public Set<FurnitureOrder> getOrders() {
+        return orderDao.findByUser(getUser());
+    }
+
+    private User getUser() {
+        org.springframework.security.core.userdetails.User details = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDao.findByUsername(details.getUsername());
     }
 }
