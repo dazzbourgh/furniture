@@ -32,5 +32,9 @@ public class FurnitureOrder {
 
     @Getter
     @Setter
+    Boolean payed;
+
+    @Getter
+    @Setter
     Boolean shipped;
 }

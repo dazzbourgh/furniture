@@ -27,7 +27,14 @@
                 <tbody>
                     <tr th:each="order : ${orders}">
                         <td th:text="${order.getProduct().getTitle()}"></td>
-                        <td th:text="${order.getShipped() == true ? 'Shipped' : 'Pending'}"></td>
+                        <td th:if="${!order.getPayed()}">
+                            <form th:action="@{'/pay/' + ${order.getId()}}" method="post">
+                                <input type="radio" name="type" value="Cash" checked> Cash
+                                <input type="radio" name="type" value="Card"> Card
+                                <button type="submit">Pay</button>
+                            </form>
+                        </td>
+                        <td th:if="${order.getPayed()}" th:text="${order.getShipped() == true ? 'Shipped' : 'Pending'}"></td>
                     </tr>
                 </tbody>
             </table>
