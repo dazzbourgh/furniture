@@ -29,7 +29,16 @@ public class OrderService {
         FurnitureOrder order = new FurnitureOrder();
         order.setProduct(piece);
         order.setUser(user);
+        order.setPayed(false);
         order.setShipped(false);
+        return orderDao.save(order);
+    }
+
+    public FurnitureOrder get(Long id) {
+        return orderDao.findById(id).orElseThrow(NullPointerException::new);
+    }
+
+    public FurnitureOrder save(FurnitureOrder order) {
         return orderDao.save(order);
     }
 

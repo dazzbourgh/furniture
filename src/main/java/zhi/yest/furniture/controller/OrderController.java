@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import zhi.yest.furniture.domain.FurnitureOrder;
 import zhi.yest.furniture.service.OrderService;
+
+import javax.transaction.Transactional;
 
 @Controller
 public class OrderController {
@@ -19,6 +19,15 @@ public class OrderController {
     public ResponseEntity<Boolean> addOrder(@RequestParam Long id) {
         boolean result = null == orderService.createOrder(id);
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/pay/{id}")
+    @Transactional
+    public String pay(@PathVariable Long id) {
+        FurnitureOrder order = orderService.get(id);
+        order.setPayed(true);
+        boolean result = null == orderService.save(order);
+        return "redirect:/orders";
     }
 
     @GetMapping("/orders")
