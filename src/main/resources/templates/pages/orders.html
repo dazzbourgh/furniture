@@ -31,7 +31,7 @@
                             <form th:action="@{'/pay/' + ${order.getId()}}" method="post">
                                 <input type="radio" name="type" value="Cash" checked> Cash
                                 <input type="radio" name="type" value="Card"> Card
-                                <button type="submit">Pay</button>
+                                <button type="submit" class="btn">Pay</button>
                             </form>
                         </td>
                         <td th:if="${order.getPayed()}" th:text="${order.getShipped() == true ? 'Shipped' : 'Pending'}"></td>
