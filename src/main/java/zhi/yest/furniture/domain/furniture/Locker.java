@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @DiscriminatorValue("locker")
 @EqualsAndHashCode(callSuper = true)
+@Setter
+@Getter
 public class Locker extends FurniturePiece {
-    @Getter
-    @Setter
     private Integer shelvesAmount;
 }

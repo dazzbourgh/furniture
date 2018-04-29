@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
 import zhi.yest.furniture.util.SessionUtil;
 
+import javax.persistence.LockModeType;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
 
 import javax.persistence.*;
@@ -11,30 +12,26 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class FurnitureOrder {
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
-    Long id;
+    private Long id;
 
     @JoinColumn(nullable = false)
-    @Getter
-    @Setter
     @OneToOne
-    FurniturePiece product;
+    private FurniturePiece product;
 
     @JoinColumn(nullable = false)
-    @Getter
-    @Setter
     @ManyToOne
-    User user;
+    private User user;
 
-    @Getter
-    @Setter
-    Boolean payed;
+    private Boolean payed;
+    private Boolean shipped;
 
-    @Getter
-    @Setter
-    Boolean shipped;
+    @Version
+    private Integer version;
 }

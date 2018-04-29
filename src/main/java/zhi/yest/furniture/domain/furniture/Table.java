@@ -10,8 +10,8 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @DiscriminatorValue("table")
 @EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 public class Table extends FurniturePiece {
-    @Getter
-    @Setter
     private Integer size;
 }

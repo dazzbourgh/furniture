@@ -18,32 +18,22 @@ import javax.persistence.*;
                 query = "from FurniturePiece f"
         )
 })
+@Getter
+@Setter
 public abstract class FurniturePiece {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
-    @Setter
     protected Long id;
 
-    @Getter
-    @Setter
     @Column(unique = true, nullable = false)
     protected String title;
 
-    @Getter
-    @Setter
     protected String family;
 
-    @Getter
-    @Setter
     protected Float price;
 
-    @Getter
-    @Setter
     protected String color;
 
-    @Getter
-    @Setter
     protected String pictureUrl;
 
     @Override
