@@ -12,6 +12,12 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "type")
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(
+                name = "findAll",
+                query = "from FurniturePiece f"
+        )
+})
 public abstract class FurniturePiece {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

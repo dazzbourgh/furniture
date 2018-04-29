@@ -38,7 +38,7 @@ public class DaoImpl implements Dao {
     @Override
     public List<FurniturePiece> getAll() {
         try (Session session = util.openSession()) {
-            Query query = session.createQuery("select f from FurniturePiece f", FurniturePiece.class);
+            Query query = session.getNamedQuery("findAll");
             return (List<FurniturePiece>) query.getResultList();
         } catch (Exception e) {
             return Collections.emptyList();
