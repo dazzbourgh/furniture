@@ -3,6 +3,7 @@ package zhi.yest.furniture.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import zhi.yest.furniture.domain.furniture.FurniturePiece;
@@ -26,7 +27,10 @@ public class DaoImpl implements Dao {
     @Override
     public <T extends FurniturePiece> T get(Long id, Class<T> clazz) {
         Session session = util.openSession();
-        T t = session.get(clazz, id);
+        T t = (T) session.createNativeQuery("SELECT * FROM Furniture_Piece WHERE id = :id")
+                .setParameter("id", id)
+                .addEntity(clazz)
+                .uniqueResult();
         session.close();
         return t;
     }
