@@ -15,9 +15,9 @@ import java.util.Arrays;
 @Component
 public class DBUtil {
     @Autowired
-    Dao dao;
+    private Dao dao;
     @Autowired
-    UserDao userDao;
+    private UserDao userDao;
 
     @PostConstruct
     public void fillDB() {
@@ -48,7 +48,7 @@ public class DBUtil {
         table.setFamily("Generic");
         table.setPrice(1F);
         table.setTitle("Generic Table");
-        table.setPictureUrl("http://www.oxfordgarden.com/products/images/thumb_HA28TA_1.jpg");
+        table.setPictureUrl("https://www.ikea.com/sg/en/images/products/tarendo-table-black__0241636_PE381441_S4.JPG");
         dao.save(table, Table.class);
     }
 
